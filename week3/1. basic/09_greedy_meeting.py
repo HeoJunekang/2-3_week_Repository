@@ -39,7 +39,7 @@ def select_meetings(meetings):
     while True:
         for i in range(len(meetings)):
             meeting = meetings[i]
-            if start < meeting[0] and meeting[1] < end:
+            if start <= meeting[0] and meeting[1] < end:
                 end = meeting[1]
                 index = i           
         if pre_index == index:
@@ -48,9 +48,6 @@ def select_meetings(meetings):
         start = end
         end = 24
         selected.append(meetings[index])
-    
-    
-   
     
     return len(selected), selected
 
