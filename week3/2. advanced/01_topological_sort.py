@@ -20,10 +20,7 @@
 
 위상 정렬: [0, 1, 2, 3] 또는 [0, 2, 1, 3]
 
-힌트:
-- 진입 차수(in-degree) 사용
-- 진입 차수가 0인 정점부터 시작
-- 큐 사용
+
 """
 
 from collections import deque
@@ -39,22 +36,35 @@ def topological_sort(vertices, edges):
     Returns:
         위상 정렬 순서
     """
-    # TODO: 그래프와 진입 차수 초기화
-    pass
+   
+    # queue = deque()
+    # result = []
+    # nums = {}
+    # for i in range(vertices):
+    #     nums[i] = 0
+    # for edge in edges:
+    #     nums[edge[1]] +=1
     
-    # TODO: 그래프 구성 및 진입 차수 계산
-    pass
-    
-    # TODO: 진입 차수가 0인 정점들을 큐에 추가
-    pass
-    
-    result = []
-    
-    # TODO: 큐가 빌 때까지 반복
-    ## 큐에서 정점 꺼내기
-    ## 인접한 정점들의 진입 차수 감소
-    pass
-    
+    # while nums:
+    #     for i in nums:
+    #         if nums[i] == 0:
+    #             queue.append(i)
+        
+    #     vertice = queue.popleft()
+    #     if nums[vertice]:
+    #         del nums[vertice]
+    #     result.append(vertice)
+    #     removeIndex = []
+    #     for i in range(len(edges)):
+    #         if edges[i][0] == vertice:
+    #             nums[edges[i][1]] -= 1
+    #             removeIndex.append(i)
+    #     for i in removeIndex:
+    #         edges.pop(i)
+        
+                
+            
+
     return result
 
 # 테스트 케이스

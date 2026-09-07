@@ -49,17 +49,7 @@ dijkstra(n: int, edges: list[tuple[int, int, int]], start: int) -> list
 - 0 <= n <= 1000, 간선 수 <= 5000 정도면 충분.
 - 0 <= w <= 10000
 
-▣ 힌트 (heapq 사용, O((V+E) log V))
-  import heapq
-  - dist 를 INF 로 초기화하고 dist[start] = 0
-  - 우선순위 큐에 (0, start) 를 push
-  - 큐가 빌 때까지:
-      (d, u) = heappop
-      if d > dist[u]: continue     # 이미 더 짧은 경로로 처리됨
-      for v, w in graph[u]:
-          if dist[u] + w < dist[v]:
-              dist[v] = dist[u] + w
-              heappush(pq, (dist[v], v))
+
 """
 
 import heapq
@@ -68,19 +58,84 @@ import heapq
 INF = float('inf')
 
 
-def dijkstra(n: int, edges: list, start: int) -> list:
+def dijkstra(n: int, edges: list, start: int) -> list: #각 정점까지의 최단거리를 구함
     """
     n: 정점 수 (정점 번호 0 ~ n-1)
     edges: (u, v, w) 형식 방향 간선 리스트
     start: 출발 정점
     반환: 길이 n 의 거리 리스트 (도달 불가 = float('inf'))
     """
-    # TODO: 인접 리스트 graph 구성 (graph[u] = [(v, w), ...])
-    # TODO: dist 를 INF 로 초기화하고 dist[start] = 0
-    # TODO: 우선순위 큐(heapq)로 BFS-like 최단경로 탐색
-    # TODO: dist 반환
-    pass
-
+    heap = []
+    result = []
+    for i in range(n):
+        result.append(float('inf'))
+    result[start] = 0
+        
+    # def makeheap(start, edges, heap):
+    #     for edge in edges:
+    #         if edge[0] == start:
+    #             arr = [edge[2], edge[0], edge[1]]
+    #             heapq.heappush(heap, arr)
+           
+        
+    # makeheap(start, edges, heap)
+    # length = 0
+    # while heap:
+    #     min = heapq.heappop(heap)
+    #     length += min[0]
+    #     result[min[2]] = length
+    #     start = min[2]
+    #     heap.clear()
+    #     makeheap(start, edges, heap) #이렇게 하니 안가는 곳은 안감.. 최소가 아니라고
+    
+    # def makeheap(end, edges, heap):
+    #         for edge in edges:
+    #             if edge[1] == end:
+    #                 arr = [edge[2], edge[0], edge[1]]
+    #                 heapq.heappush(heap, arr)
+               
+    # for end in range(1,n):
+    #     length = 0
+    #     next_end = end
+    #     makeheap(next_end, edges, heap)
+    #     while True:
+    #         if heap:
+    #             min = heapq.heappop(heap)
+    #             length += min[0]
+    #             next_end = min[1]
+    #             heap.clear()
+    #             if next_end == 0:
+    #                 result[end] = length
+    #                 break
+    #             makeheap(next_end, edges, heap)
+    #         else:
+    #             break
+    
+    def makeheap(start, edges, heap, length):
+        for edge in edges:
+            if edge[0] == start:
+                arr = [edge[2] + length, edge[1]] #[거리, 정점]
+                heapq.heappush(heap, arr)
+                
+    makeheap(start, edges,heap,0)
+    
+    while heap:
+        min = heapq.heappop()
+        if min[0] < result[min[1]]:
+            result[min[1]] = min[0]
+            makeheap(min[1], edges, heap, min[0])
+        else:
+            continue
+            
+        
+        
+        
+        
+            
+    return result
+       
+    
+    
 
 def _format(dist):
     """출력 표기를 위한 헬퍼: float('inf') 는 'INF' 로 보여줌"""

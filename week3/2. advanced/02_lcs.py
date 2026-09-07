@@ -21,13 +21,6 @@ lcs_length(s1: str, s2: str) -> int
 ▣ 제약
 - 0 <= len(s1), len(s2) <= 500 정도면 충분합니다 (O(m*n) 2차원 DP).
 
-▣ 힌트 (2차원 DP)
-- dp[i][j] := s1[0:i] 와 s2[0:j] 의 LCS 길이 (1-based 로 보면 편함)
-- 점화식:
-    if s1[i-1] == s2[j-1]:   dp[i][j] = dp[i-1][j-1] + 1
-    else:                    dp[i][j] = max(dp[i-1][j], dp[i][j-1])
-- 초기 조건: dp[0][*] = dp[*][0] = 0
-- 최종 답은 dp[len(s1)][len(s2)] 입니다.
 """
 
 
@@ -36,12 +29,45 @@ def lcs_length(s1: str, s2: str) -> int:
     s1, s2 의 가장 긴 공통 부분수열의 길이를 반환.
     어느 한쪽이라도 비어 있으면 0 을 반환합니다.
     """
-    # TODO: 빈 문자열 처리
-    # TODO: (len(s1)+1) x (len(s2)+1) 크기의 2차원 dp 배열을 0 으로 초기화
-    # TODO: 이중 반복문으로 점화식에 따라 dp 채우기
-    # TODO: dp[len(s1)][len(s2)] 반환
-    pass
-
+    if len(s1)>500 or len(s1)<=0 or len(s2)>500 and len(s2)<=0:
+      return 0
+    
+    max_length = 0
+    long_str = ""
+    short_str = ""
+    if len(s2) < len(s1):
+      long_str = s1
+      short_str = s2
+    else:
+      long_str = s2
+      short_str = s1
+      
+    max_list = []
+    for i in range(len(short_str)):
+      length = 0
+      long_static_index = 0
+      short_static_index = i
+      long_index = long_static_index
+      while short_static_index < len(short_str):
+        if long_index < len(long_str):
+          if long_str[long_index] == short_str[short_static_index]:
+            long_index += 1
+            long_static_index = long_index
+            short_static_index += 1
+            length += 1
+          else:
+            long_index += 1
+        else:
+          short_static_index += 1
+          long_index = long_static_index
+        
+            
+      max_list.append(length)   
+      
+    max_length = max(max_list)
+    
+    return max_length
+    
 
 if __name__ == "__main__":
     print("[테스트 1] 한쪽이 빈 문자열")
