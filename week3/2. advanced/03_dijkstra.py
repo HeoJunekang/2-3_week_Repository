@@ -120,7 +120,7 @@ def dijkstra(n: int, edges: list, start: int) -> list: #각 정점까지의 최�
     makeheap(start, edges,heap,0)
     
     while heap:
-        min = heapq.heappop()
+        min = heapq.heappop(heap)
         if min[0] < result[min[1]]:
             result[min[1]] = min[0]
             makeheap(min[1], edges, heap, min[0])
