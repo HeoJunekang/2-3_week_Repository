@@ -86,7 +86,74 @@ int main()
 
 void moveOddItemsToBack(LinkedList *ll)
 {
-	/* add your code here */
+	// LinkedList tl;
+	// tl.head = NULL;
+	// tl.size = 0;
+
+	// if(ll == NULL){
+	// 	return;
+	// }
+	// int index = 0;
+	// ListNode *temp = ll->head; 
+	// while(temp->item != NULL){
+	// 	int item = temp->item;
+	// 	if(item%2 == 1){
+	// 		insertNode(&tl, index, item);
+	// 		removeNode(ll, );
+	// 		index++;
+	// 	}
+	// }
+
+ 	
+	ListNode *oddHead = NULL;
+	ListNode *oddTail = NULL;
+	ListNode *evenHead =NULL;
+	ListNode *evenTail =NULL;
+	
+	
+	ListNode *temp = ll->head; 
+	while(temp != NULL){
+		if(temp->item %2 == 0){
+			if(evenHead == NULL){
+				evenHead = temp; 
+				evenTail = temp;
+			}
+			else{
+				evenTail->next = temp;
+				evenTail = temp;
+			}
+		}else{
+			if(oddHead == NULL){
+				oddHead = temp; 
+				oddTail = temp;
+			}
+			else{
+				oddTail->next = temp;
+				oddTail = temp;
+			}
+		}
+		temp = temp->next;
+	}
+
+	if(oddTail != NULL){
+		oddTail->next = NULL;
+	}
+	
+	
+	if(evenHead == NULL){
+		ll->head = oddHead;
+	}
+	else{
+		evenTail->next = oddHead;
+		ll->head = evenHead;
+	}
+		
+	
+	
+
+
+	
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

@@ -18,7 +18,7 @@ typedef struct _listnode{
 
 typedef struct _linkedlist{
 	int size;
-	ListNode *head;
+	ListNode *head; 
 } LinkedList;			// You should not change the definition of LinkedList
 
 
@@ -53,7 +53,7 @@ int main()
 
 	while (c != 0)
 	{
-		printf("\nPlease input your choice(1/2/3/0): ");
+		printf("\nPlease input your choice(0/1/2/3/): ");
 		scanf("%d", &c);
 
 		switch (c)
@@ -90,7 +90,26 @@ int main()
 
 int insertSortedLL(LinkedList *ll, int item)
 {
-	/* add your code here */
+	int index = 0;
+
+	ListNode *cur = ll->head;
+
+	while(cur != NULL)
+	{
+		if(cur->item == item){
+			return -1;
+		}
+		else if(cur->item > item){
+			break;
+		}
+		else{
+			index++;
+			cur = cur->next;	
+		}
+		
+	}
+	insertNode(ll, index, item);
+	return index;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -135,7 +154,7 @@ ListNode *findNode(LinkedList *ll, int index){
 	if (ll == NULL || index < 0 || index >= ll->size)
 		return NULL;
 
-	temp = ll->head;
+	temp = ll->head; //ㅣinkedNode주소값
 
 	if (temp == NULL || index < 0)
 		return NULL;
